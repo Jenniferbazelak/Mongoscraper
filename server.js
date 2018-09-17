@@ -3,7 +3,7 @@ var express = require("express");
 var mongojs = require("mongojs");
 var request = require("request");
 var cheerio = require("cheerio");
-var handlebars = require("express-handlebars");
+var exphbs = require("express-handlebars");
 var bodyParser = require("body-parser")
 
 
@@ -26,6 +26,10 @@ app.engine(
   );
   app.set("view engine", "handlebars");
 
+  // Routes
+require("./routes/api-routes")(app);
+require("./routes/html-routes")(app);
+
 
 // Database configuration
 var databaseUrl = "scraper";
@@ -37,15 +41,8 @@ db.on("error", function (error) {
   console.log("Database Error:", error);
 });
 
-// Main route (simple Hello World Message)
-app.get("/", function (req, res) {
-  res.send("Hello world");
-});
-
-
 // This route will retrieve all of the data
 // from the scrapedData collection as a json
-
 app.get("/all", function (req, res) {
   db.scrapedData.find({}, function (error, found) {
     if (error) {
@@ -65,25 +62,46 @@ app.get("/all", function (req, res) {
 app.get("/scrape", function (req, res) {
 
   request("https://goop.com", function (error, response, html) {
-  db.scrapedData.remove();
+  db.scrapedData.find({saved: false}).remove();
 
     var $ = cheerio.load(html);
 
 
     $("a.nl-item").each(function (i, element) {
+       // var summary = $(element).children().text();
       var title = $(element).children().text();
       var link = $(element).attr("href");
 if(title && link){
-      db.scrapedData.insert({ link: link, title: title })
-}
-    });
+      db.scrapedData.insert({ link: link, title: title, saved: false, comments: []})
+    };
     res.redirect("/all")
-
+    });
   });
 });
 
+
+
+// When you visit this route, the server will
+// populate all articles that are saved MongoDB.
+
+app.get("/saved", function (req, res) {
+    db.scrapedData.find({}).sort({saved: true}, function (err, data)  {
+        // Log any errors if the server encounters one
+        if (err) {
+          console.log(err);
+        }
+        else {
+          // Otherwise, send the result of this query to the browser
+          res.json(data);
+        }
+      });
+  
+    });
+ 
 
 // Listen on port 3000
 app.listen(3000, function () {
   console.log("App running on port 3000!");
 });
+
+module.exports = app;

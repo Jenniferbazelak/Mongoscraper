@@ -26,18 +26,16 @@
 <body>
   <!-- Main Nav -->
   <header>
-    <nav>
-      <div class="nav-wrapper">
-        <a href="/" class="brand-logo comfortaa bold">MongoScraper</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-       <li><a href="/saved">Saved Articles</a></li>
-        </ul>
-      </div>
-    </nav>
-    <!-- Mobile Nav -->
-    <ul class="sidenav" id="mobile">
-      <li><a href="/saved">Saved Articles</a></li>
-    </ul>
+   <nav>
+    <div class="nav-wrapper">
+      <a href="/" class="brand-logo">MongoScraper</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+         <a href="/scrape" class="waves-effect waves-light btn-large red lighten-2" id="scrape-btn">Scrape Articles</a>
+          <a href="/clear" class="waves-effect waves-light btn-large red lighten-2"id="clear-btn">Clear Articles</a>
+        <li><a href="/saved">Saved Articles</a></li>
+      </ul>
+    </div>
+  </nav>
   </header>
 
   <main>
@@ -49,9 +47,7 @@
   </footer>
   
   <!-- JS -->
-  <script src="/js/class.js"></script>
-  <script src="/js/script.js"></script>
-  <script src="/js/user.js"></script>
+  <script src="/public/js/app.js"></script>
 </body>
 
 </html>

@@ -5,7 +5,6 @@ $(document).ready(function () {
             return $.ajax({
                 type: "GET",
                 url: "/all"
-
             });
         },
         scrapeArticles: function () {
@@ -17,7 +16,7 @@ $(document).ready(function () {
 
         clearArticles: function () {
             return $.ajax({
-                type: "DELTE",
+                type: "DELETE",
                 url: "/clear"
             });
         },
@@ -50,18 +49,6 @@ $(document).ready(function () {
         },
     };
 
-
-    // When someone clicks the Scrape button...
-    $("#scrape-btn").on("click", function () {
-
-        API.scrapeArticles()
-    });
-
- // When someone clicks the clear button...
- $("#clear-btn").on("click", function () {
-
-    API.clearArticles()
-});
 
  // When someone clicks the Saved button...
  $("#saved-btn").on("click", function () {
