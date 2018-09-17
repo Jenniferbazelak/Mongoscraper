@@ -1,0 +1,55 @@
+<!-- Intro -->
+<div id="index-banner" class="parallax-container">
+  <div class="section">
+    <div class="container">
+      <div class="row center">
+        <div class="col s12">
+          <h1 class="header center" id="main-title">Mongo Scraper </h1>
+          <h3 class="header" id="subtitle">Find and save your favorite articles from goop.com here</h3>
+          <br>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Parallax Image -->
+  <div class="parallax"><img src="/public/images/thought-catalog-580669-unsplash.jpg" alt="article photo"></div>
+</div>
+<!-- Container -->
+<div class="container">
+  <div class="section">
+    <div class="row">
+      <div class="col s12">
+        <h4 class="center comfortaa bold">Saved Articles</h4>
+        <br>
+        <div class="row">
+          <!-- Articles -->
+          {{#each data}}
+           <div class="col s12 m12">
+           <ul class="collection">
+    <li class="collection-item avatar">
+      <i class="material-icons circle">folder</i>
+      <span class="title">{{this.title}}</span>
+      <p class="summary">{{this.summary}}</p> <br>
+       <a class="url" href="{{this.link}}" class="secondary-content"></a>
+       <a class="waves-effect waves-light btn"><i class="material-icons right" id="deleteComment" data-id="{{this.id}}">cloud</i>Delete</a>
+       <a class="waves-effect waves-light btn modal-trigger" href="#modal1"><i class="material-icons right" id="addComment" data-id="{{this.id}}">cloud</i>Add Comment</a>
+    </li>
+    </ul>
+    </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Comments</h4>
+      <p>{{data.comment}}</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div>
