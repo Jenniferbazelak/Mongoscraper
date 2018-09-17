@@ -1,0 +1,96 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+
+#main-title {
+    margin-top: 10%;
+}
+
+#subtitle {
+    line-height: 1.5em;
+}
+
+#notfound-title {
+    margin-top: 20%;
+}
+
+.parallax-container {
+    height: 600px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.comfortaa {
+    font-family: 'Comfortaa', cursive;
+}
+
+.golden-text {
+    color: #F0A92B;
+}
+
+.fab {
+    font-size: 2em;
+    padding-top: 0;
+    padding-bottom: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.filter-btn {
+    margin: 5px;
+}
+
+.details-photo {
+    width: 100%;
+    margin-top: 5%;
+}
+
+hr {
+    margin: 20px 0;
+}
+
+.signup-btn {
+    margin: 5% 0;
+}
+
+.people-jumping-photo {
+    width: 50%;
+}
+
+.people-standing-photo {
+    width: 75%;
+}
+
+@media only screen and (max-width: 1299px) {
+    #main-title {
+        margin-top: 15%;
+    }
+}
+
+@media only screen and (max-width: 759px) {
+    #main-title {
+        margin-top: 10%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .people-jumping-photo,
+    .people-standing-photo {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 485px) {
+    #subtitle {
+        font-size: 1.25em;
+    }
+}
