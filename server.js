@@ -64,19 +64,18 @@ app.get("/saved", function (req, res) {
     // When you visit this route, the server will
 // update the article to a saved article MongoDB.
 
-app.post("/", function (req, res) {
-    db.scrapedData.find({}).sort({saved:true}, function (err, data)  {
+app.post("/add-to-saved/:id", function (req, res) {
+    db.scrapedData.findOne({id: req.params.id},{$set: {saved:true}
+    }), function (err, data)  {
         // Log any errors if the server encounters one
         if (err) {
           console.log(err);
         }
         else {
           // Otherwise, send the result of this query to the browser
-          res.render("saved", {
-            data: data
-          });
+          console.log("message saved!")
         }
-      });
+      };
   
     });
 
@@ -92,7 +91,7 @@ app.delete("/clear", function (req, res) {
 // This route will retrieve all of the data
 // from the scrapedData collection as a json
 app.get("/all", function (req, res) {
-    db.scrapedData.find({}, function (error, found) {
+    db.scrapedData.find({saved:false}, function (error, data) {
       if (error) {
         console.log(error);
         res.status(500).send(error);
