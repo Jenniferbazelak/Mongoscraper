@@ -20,10 +20,11 @@ $(document).ready(function () {
                 url: "/clear"
             });
         },
-        addToSaved: function () {
+        addToSaved: function (articleId) {
             return $.ajax({
-                type: "UPDATE",
-                url: "/add-to-saved"
+                type: "POST",
+                url: "/add-to-saved",
+                data: articleId
             });
         },
 
@@ -51,9 +52,9 @@ $(document).ready(function () {
 
 
  // When someone clicks the Saved button...
- $("#saved-btn").on("click", function () {
-
-    API.savedArticles()
+ $("#save-btn").on("click", function () {
+    var articleId = $("#save-btn").attr("data-id");
+    API.addToSaved(articleId)
 });
 
  // When someone clicks the Scrape button...

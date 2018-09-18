@@ -1,4 +1,20 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    background-image: url("/images/florencia-viadana-732632-unsplash.jpg");
+}
 
+main {
+    flex: 1 0 auto;
+}
+.parallax-container {
+    height: 600px;
+}
+
+#main-title{
+    color: white;
+}
 
 
 
