@@ -59,7 +59,10 @@ $(document).ready(function () {
  $(".addcomment").on("click", function () {
     $(".modal").modal("open");
     var articleID = $(this).attr("data-id");
-   API.pullAddComments(articleId);
+   API.pullAddComments(articleId).then(function (data) {
+    
+});
+
 });
 
  // When someone clicks the delete comment button...

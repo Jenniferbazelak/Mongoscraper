@@ -94,14 +94,16 @@ router.get("/get-comments/:id", function (req, res) {
   // ..and populate all of the comments associated with it
   .populate("comments")
   // now, execute our query
-  .exec(function(error, doc) {
+  .exec(function(error, commentData) {
     // Log any errors
     if (error) {
       console.log(error);
     }
     // Otherwise, send the doc to the browser as a json object
     else {
-      res.json(doc);
+      res.rendor("saved", {
+        commentData: commentData
+      });
     }
   });
 });
