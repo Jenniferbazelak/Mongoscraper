@@ -39,10 +39,10 @@ var ArticleSchema = new Schema({
     default: false
   },
   // // This will save an array of comments' ObjectIds
-  // comments:[{
-  //       type: Schema.ObjectId,
-  //       ref:'Comment'
-  //   }]
+  comments:[{
+        type: Schema.ObjectId,
+        ref:'Comment'
+    }]
 });
 
 // Create the Article model with the ArticleSchema
