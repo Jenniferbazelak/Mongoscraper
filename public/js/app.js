@@ -11,6 +11,12 @@ $(document).ready(function () {
                 url: "/add-to-saved/" + articleId
             });
         },
+        pullAddComments: function () {
+            return $.ajax({
+                type: "GET",
+                url: "/get-comments"
+            });
+        },
 
         updateComments: function () {
             return $.ajax({
@@ -18,7 +24,13 @@ $(document).ready(function () {
                 url: "/add-comments"
             });
         },
-
+        
+        deleteComments: function () {
+            return $.ajax({
+                type: "DELETE",
+                url: "/delete-comments"
+            });
+        },
         clearArticles: function () {
             return $.ajax({
                 type: "DELETE",
@@ -26,12 +38,6 @@ $(document).ready(function () {
             });
         },
 
-        deleteComments: function () {
-            return $.ajax({
-                type: "DELETE",
-                url: "/delete-comments"
-            });
-        },
         deleteFromSaved: function (articleId) {
             return $.ajax({
                 type: "POST",
@@ -52,8 +58,8 @@ $(document).ready(function () {
  // When someone clicks the add comment button...
  $(".addcomment").on("click", function () {
     $(".modal").modal("open");
-    
-   
+    var articleID = $(this).attr("data-id");
+   API.pullAddComments();
 });
 
  // When someone clicks the delete comment button...
