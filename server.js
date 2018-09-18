@@ -35,44 +35,20 @@ app.engine(
 );
 app.set("view engine", "handlebars");
 
-
+//set up database with mongoose
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 mongoose.Promise = Promise;
+var db = mongoose.connection;
 mongoose.connect(MONGODB_URI);
 
-
-
-// When you visit this route, the server will
-// update the article to a saved article MongoDB.
-
-app.post("/add-to-saved/:id", function (req, res) {
-  db.scrapedData.findOne({ id: req.params.id }, {
-    $set: { saved: true }
-  }), function (err, data) {
-    // Log any errors if the server encounters one
-    if (err) {
-      console.log(err);
-    }
-    else {
-      // Otherwise, send the result of this query to the browser
-      console.log("message saved!")
-    }
-  };
-  res.redirect("/all");
-
+// Show any mongoose errors
+db.on("error", function(error) {
+  console.log("Mongoose Error: ", error);
 });
 
-// When you visit this route, the server will
-// clear the data from the MongoDB.
-
-app.delete("/clear", function (req, res) {
-  db.scrapedData.remove();
-  res.redirect("/")
-});
-
-
-
-
+// Routing
+app.use("/", htmlRouter);
+app.use("/", articleRouter);
 
 
 // Listen on port 3000

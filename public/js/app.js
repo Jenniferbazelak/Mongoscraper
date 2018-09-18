@@ -7,8 +7,7 @@ $(document).ready(function () {
         addToSaved: function (articleId) {
             return $.ajax({
                 type: "POST",
-                url: "/add-to-saved",
-                data: articleId
+                url: "/add-to-saved/" + articleId
             });
         },
 
@@ -16,6 +15,13 @@ $(document).ready(function () {
             return $.ajax({
                 type: "UPDATE",
                 url: "/add-comments"
+            });
+        },
+
+        clearArticles: function () {
+            return $.ajax({
+                type: "DELETE",
+                url: "/clear"
             });
         },
 
@@ -32,6 +38,7 @@ $(document).ready(function () {
  $("#save-btn").on("click", function () {
     var articleId = $("#save-btn").attr("data-id");
     API.addToSaved(articleId)
+    window.location.href= ("/");
 });
 
  // When someone clicks the Scrape button...
@@ -46,4 +53,18 @@ $(document).ready(function () {
     API.deleteComments()
 });
 
+// When someone clicks the delete from saved button...
+$("#delete-comment-btn").on("click", function () {
+
+    API.deleteComments()
 });
+
+// When someone clicks the clear button...
+$("#clear-btn").on("click", function () {
+
+    API.clearArticles()
+    window.location.href= ("/");
+});
+
+});
+

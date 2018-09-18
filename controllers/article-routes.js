@@ -7,24 +7,6 @@ var Article = require("../models/Article");
 var router = express.Router();
 
 
-// This route will retrieve all of the data
-// from the scrapedData collection as a json
-router.get("/all", function (req, res) {
-    Article.find({saved:false}).exec(function (error, data) {
-      if (error) {
-        console.log(error);
-        res.status(500).send(error);
-      }
-      else {
-        res.render("index", {
-            data: data
-          });
-      }
-    });
-  });
-
-
-
 // When you visit this route, the server will
 // scrape data from the site, and save it to MongoDB.
 
@@ -55,11 +37,40 @@ router.get("/scrape", function (req, res) {
                 console.log(doc);
             }
         });
-      res.redirect("/all")
       });
+      res.redirect("/");
     });
 });
 
-
+// When you visit this route, the server will
+// update the article to a saved article MongoDB.
+router.post("/add-to-saved/:id", function (req, res) {
+    Article.findOneAndUpdate({ _id :req.params.id}, {saved: true}).exec(function (err, data) {
+      // Log any errors if the server encounters one
+      if (err) {
+        console.log(err);
+      }
+      else {
+        // Otherwise, log result
+        console.log("Data saved: ", data)
+      }
+    });
+  });
+  
+  // When you visit this route, the server will
+  // clear the data from the MongoDB.
+  router.delete("/clear", function (req, res) {
+   Article.remove({}, function (err){
+       // Log any errors if the server encounters one
+      if (err) {
+        console.log(err);
+      }
+      else {
+        // Otherwise, log result
+        console.log("Removed all articles")
+      }
+   });
+  });
+  
 
 module.exports = router;

@@ -1,18 +1,31 @@
 var express = require("express");
 var exphbs = require("express-handlebars");
-
+var Article = require("../models/Article");
 var router = express.Router();
 
  
-// Main route (simple Hello World Message)
+// Main route -This route will retrieve all of the data
+// from the scrapedData collection as a json
 router.get("/", function (req, res) {
-    res.render("index");
+  Article.find({saved:false}).exec(function (error, data) {
+    if (error) {
+      console.log(error);
+      res.status(500).send(error);
+    }
+    else {
+      res.render("index", {
+          data: data
+        });
+    }
+  });
 });
+    
+
 
 // When you visit this route, the server will
 // populate all articles that are saved MongoDB.
 router.get("/saved", function (req, res) {
-    db.scrapedData.find({}).sort({saved:true}, function (err, data)  {
+    Article.find({saved:true}).exec(function (err, data)  {
         // Log any errors if the server encounters one
         if (err) {
           console.log(err);
