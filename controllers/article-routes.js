@@ -87,5 +87,25 @@ router.post("/add-to-saved/:id", function (req, res) {
     });
   });
   
+//This route will retrieve all of the comments
+// from the selected article
+router.get("/get-comments/:id", function (req, res) {
+    Article.findOne({ "_id": req.params.id })
+  // ..and populate all of the comments associated with it
+  .populate("comments")
+  // now, execute our query
+  .exec(function(error, doc) {
+    // Log any errors
+    if (error) {
+      console.log(error);
+    }
+    // Otherwise, send the doc to the browser as a json object
+    else {
+      res.json(doc);
+    }
+  });
+});
 
+
+  
 module.exports = router;

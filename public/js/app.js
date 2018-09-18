@@ -11,10 +11,10 @@ $(document).ready(function () {
                 url: "/add-to-saved/" + articleId
             });
         },
-        pullAddComments: function () {
+        pullAddComments: function (articleId) {
             return $.ajax({
                 type: "GET",
-                url: "/get-comments"
+                url: "/get-comments" + articleId
             });
         },
 
@@ -24,7 +24,7 @@ $(document).ready(function () {
                 url: "/add-comments"
             });
         },
-        
+
         deleteComments: function () {
             return $.ajax({
                 type: "DELETE",
@@ -59,7 +59,7 @@ $(document).ready(function () {
  $(".addcomment").on("click", function () {
     $(".modal").modal("open");
     var articleID = $(this).attr("data-id");
-   API.pullAddComments();
+   API.pullAddComments(articleId);
 });
 
  // When someone clicks the delete comment button...
