@@ -23,12 +23,12 @@
            <div class="col s12 m12">
            <ul class="collection">
     <li class="collection-item avatar">
-      <i class="material-icons circle">folder</i>
+       <img src="{{this.photo}}" alt="article-photo" class="circle">
       <span class="title">{{this.title}}</span>
       <p class="summary">{{this.summary}}</p> <br>
-       <a class="url" href="{{this.link}}" class="secondary-content"></a>
+        <a class="url" href="{{this.link}}"></a>
        <a class="waves-effect waves-light btn"><i class="material-icons right" id="deleteSavedArticle" data-id="{{this.id}}">cloud</i>Delete From Saved</a>
-       <a class="waves-effect waves-light btn modal-trigger" href="#modal1"><i class="material-icons right" id="addComment" data-id="{{this.id}}">cloud</i>Add Comment</a>
+       <a class="waves-effect waves-light btn modal-trigger" href="#modal1"><i class="material-icons right" id="addComment" data-id="{{this.id}}">cloud</i>Article Notes</a>
     </li>
     </ul>
     </div>

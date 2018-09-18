@@ -1,3 +1,5 @@
+
+
 $(document).ready(function () {
 
     var API = {
@@ -19,8 +21,8 @@ $(document).ready(function () {
 
         deleteComments: function () {
             return $.ajax({
-                type: "GET",
-                url: "/add-comments"
+                type: "DELETE",
+                url: "/delete-comments"
             });
         },
     };
