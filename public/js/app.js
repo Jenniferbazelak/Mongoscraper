@@ -65,12 +65,6 @@ $(document).ready(function () {
 
 });
 
- // When someone clicks the delete comment button...
- $(".delete-comment-btn").on("click", function () {
-
-    API.deleteComments()
-});
-
 // When someone clicks the delete from saved button...
 $(".deleteSavedArticle").on("click", function () {
     var articleId = $(".deleteSavedArticle").attr("data-id");
