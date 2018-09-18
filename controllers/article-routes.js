@@ -71,6 +71,21 @@ router.post("/add-to-saved/:id", function (req, res) {
       }
    });
   });
+
+  // When you visit this route, the server will
+  // delete from the saved list.
+  router.post("/delete-from-saved/:id", function (req, res) {
+    Article.findOneAndUpdate({ _id :req.params.id}, {saved:false}).exec(function (err, data) {
+      // Log any errors if the server encounters one
+      if (err) {
+        console.log(err);
+      }
+      else {
+        // Otherwise, log result
+        console.log("Data unsaved: ", data)
+      }
+    });
+  });
   
 
 module.exports = router;
