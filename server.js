@@ -35,16 +35,6 @@ app.engine(
 );
 app.set("view engine", "handlebars");
 
-//set up database with mongoose
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-mongoose.Promise = Promise;
-var db = mongoose.connection;
-mongoose.connect(MONGODB_URI);
-
-// Show any mongoose errors
-db.on("error", function(error) {
-  console.log("Mongoose Error: ", error);
-});
 
 // Routing
 app.use("/", htmlRouter);

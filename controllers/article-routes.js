@@ -6,7 +6,16 @@ var Comment = require("../models/Comment.js");
 var Article = require("../models/Article");
 var router = express.Router();
 
+// //set up database with mongoose
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+mongoose.Promise = Promise;
+var db = mongoose.connection;
+mongoose.connect(MONGODB_URI);
 
+// Show any mongoose errors
+db.on("error", function(error) {
+    console.log("Mongoose Error: ", error);
+  });
 // When you visit this route, the server will
 // scrape data from the site, and save it to MongoDB.
 
