@@ -5,6 +5,7 @@ var cheerio = require("cheerio");
 var Comments = require("../models/Comment.js");
 var Article = require("../models/Article");
 var router = express.Router();
+var mongoose = require("mongoose");
 
 //Grab mongoose db
 var db = mongoose.connection;
