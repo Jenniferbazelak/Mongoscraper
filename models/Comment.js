@@ -4,9 +4,9 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 // Create the comment schema
-var CommentSchema = new Schema({
+var CommentsSchema = new Schema({
   // The comment text
-  body: {
+  comments: {
     type: String
   }
 });
@@ -15,7 +15,7 @@ var CommentSchema = new Schema({
 // These ids are referred to in the Article model
 
 // Create the Comment model with the CommentSchema
-var Comment = mongoose.model("Comment", CommentSchema);
+var Comments = mongoose.model("Comments", CommentsSchema);
 
 // Export the Comment model
-module.exports = Comment;
+module.exports = Comments;
