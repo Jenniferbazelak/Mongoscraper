@@ -45,8 +45,8 @@
       <h4>Comments</h4>
        {{#each commentData}}
       <div id="comments-list">
-        <p>{{commentData.comments}}</p>
-        <a class="waves-effect waves-light btn deleteComment" data-id="{{this.id}}"><i class="material-icons right">close</i>Delete Comment</a>
+        <p>{{commentData.body}}</p>
+        <a class="waves-effect waves-light btn deleteComment" data-id="{{this._id}}"><i class="material-icons right">close</i>Delete Comment</a>
         </div>
          {{/each}}
     <hr>
