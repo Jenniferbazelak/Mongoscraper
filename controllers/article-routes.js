@@ -90,7 +90,7 @@ router.post("/add-to-saved/:id", function (req, res) {
   // When you visit this route, the server will
   //add a new comment for the selected article.
   router.post("/add-new-comments/:id", function (req, res) {
-    var newComment = new Comment(req.body);
+    var newComment = new Comment(req.body.comment);
   // And save the new comment the db
   newComment.save(function(error, newComment) {
     // Log any errors
@@ -102,14 +102,14 @@ router.post("/add-to-saved/:id", function (req, res) {
       // Use the article id to find and update it's comment
       Article.findOneAndUpdate({ "_id": req.params.id }, { $push: { "comments": newComment._id }}, { new: true })
       // Execute the above query
-      .exec(function(err, comment) {
+      .exec(function(err, doc) {
         // Log any errors
         if (err) {
           console.log(err);
         }
         else {
-          console.log("new comment: ", comment);
-          res.send(comment);
+          console.log("new commentadded : ", doc);
+          res.send(doc);
         }
       });
     }
@@ -123,16 +123,15 @@ router.get("/get-comments/:id", function (req, res) {
   // ..and populate all of the comments associated with it
   .populate("comments")
   // now, execute our query
-  .exec(function(error, commentData) {
+  .exec(function(error, doc) {
     // Log any errors
     if (error) {
       console.log(error);
     }
     // Otherwise, send the doc to the browser as a json object
     else {
-      res.rendor("saved", {
-        commentData: commentData
-      });
+      res.json(doc);
+     
     }
   });
 });
