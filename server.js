@@ -39,9 +39,9 @@ app.set("view engine", "handlebars");
 
 
 // Show any mongoose errors
-db.on("error", function(error) {
-  console.log("Mongoose Error: ", error);
-});
+// db.on("error", function(error) {
+//   console.log("Mongoose Error: ", error);
+// });
 
 // Routing
 app.use("/", htmlRouter);
