@@ -4,4 +4,4 @@ This app allows users to view Goop articles, save their favorites onto another p
 
 ### Where do I view the site?
 
-Visit  to use Mongoscraper for Goop now!
+Visit https://lit-atoll-53867.herokuapp.com/ to use Mongoscraper for Goop now!

@@ -17,11 +17,10 @@ $(document).ready(function () {
                 url: "/get-comments" + articleId
             });
         },
-
-        updateComments: function () {
+       addNewComment: function (articleId) {
             return $.ajax({
-                type: "UPDATE",
-                url: "/add-comments"
+                type: "POST",
+                url: "/add-new-comments" + articleId
             });
         },
 
@@ -67,12 +66,12 @@ $(document).ready(function () {
 
 // When someone clicks the add comment button...
 $(".addNewComment").on("click", function () {
-    var articleID = $(this).attr("data-id");
-   API.addNewComment(articleId)
-    window.location.href=("/saved")
+    var articleId = $(this).attr("data-id");
+   API.addNewComment(articleId);
+    window.location.href=("/saved");
 });
 
-});
+
 
 // When someone clicks the delete from saved button...
 $(".deleteSavedArticle").on("click", function () {

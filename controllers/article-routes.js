@@ -86,6 +86,35 @@ router.post("/add-to-saved/:id", function (req, res) {
       }
     });
   });
+
+  // When you visit this route, the server will
+  //add a new comment for the selected article.
+  router.post("/add-new-comments/:id", function (req, res) {
+    var newComment = new Comment(req.body);
+  // And save the new comment the db
+  newComment.save(function(error, newComment) {
+    // Log any errors
+    if (error) {
+      console.log(error);
+    }
+    // Otherwise
+    else {
+      // Use the article id to find and update it's comment
+      Article.findOneAndUpdate({ "_id": req.params.id }, { $push: { "comments": newComment._id }}, { new: true })
+      // Execute the above query
+      .exec(function(err, comment) {
+        // Log any errors
+        if (err) {
+          console.log(err);
+        }
+        else {
+          console.log("new comment: ", comment);
+          res.send(comment);
+        }
+      });
+    }
+  });
+  });
   
 //This route will retrieve all of the comments
 // from the selected article
@@ -111,3 +140,4 @@ router.get("/get-comments/:id", function (req, res) {
 
   
 module.exports = router;
+
