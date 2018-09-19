@@ -3,6 +3,7 @@ var exphbs = require("express-handlebars");
 var Article = require("../models/Article");
 var router = express.Router();
 
+
  
 // Main route -This route will retrieve all of the data
 // from the scrapedData collection as a json

@@ -1,8 +1,8 @@
 // Dependencies
 var express = require("express");
-var mongojs = require("mongojs");
-var request = require("request");
-var cheerio = require("cheerio");
+// var mongojs = require("mongojs");
+// var request = require("request");
+// var cheerio = require("cheerio");
 var exphbs = require("express-handlebars");
 var bodyParser = require("body-parser")
 var mongoose = require("mongoose")
@@ -10,6 +10,7 @@ var mongoose = require("mongoose")
 
 
 // Initialize Express
+var port = process.env.PORT || 3000;
 var app = express();
 
 // Middleware
@@ -19,8 +20,8 @@ app.use(express.static("public"));
 
 
 // Requiring Comment and Article models
-var Comment = require("./models/Comment.js");
-var Article = require("./models/Article.js");
+// var Comment = require("./models/Comment.js");
+// var Article = require("./models/Article.js");
 
 // Requiring routing controllers
 var htmlRouter = require("./controllers/html-routes.js");
@@ -36,10 +37,18 @@ app.engine(
 app.set("view engine", "handlebars");
 
 //set up database with mongoose
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-mongoose.Promise = Promise;
+//DB config
+var dbURI = "mongodb://localhost/mongoHeadlines";
+
+if (process.env.MONGODB_URI) {
+    mongoose.connect(process.env.MONGODB_URI);
+}
+else {
+    mongoose.connect(dbURI)
+}
+
+//Grab mongoose db
 var db = mongoose.connection;
-mongoose.connect(MONGODB_URI);
 
 // Show any mongoose errors
 db.on("error", function(error) {

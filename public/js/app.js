@@ -14,13 +14,16 @@ $(document).ready(function () {
         pullAddComments: function (articleId) {
             return $.ajax({
                 type: "GET",
-                url: "/get-comments" + articleId
+                url: "/get-comments/" + articleId
             });
         },
        addNewComment: function (articleId) {
             return $.ajax({
                 type: "POST",
-                url: "/add-new-comments" + articleId
+                url: "/add-new-comments" + articleId,
+                data: {
+                    comments: userInput
+                }
             });
         },
 
@@ -54,12 +57,12 @@ $(document).ready(function () {
     window.location.href= ("/");
 });
 
- // When someone clicks the add comment button...
+ // When someone clicks the article notes button...
  $(".addcomment").on("click", function () {
     $(".modal").modal("open");
-    var articleID = $(this).attr("data-id");
+    var articleId = $(this).attr("data-id");
    API.pullAddComments(articleId).then(function (commentData) {
-    $("#comments-list").push(commentData)
+    $("#comments-list").push(data)
 });
 
 });
@@ -67,8 +70,10 @@ $(document).ready(function () {
 // When someone clicks the add comment button...
 $("#addCommentBtn").on("click", function () {
     var articleId = $(this).attr("data-id");
-   API.addNewComment(articleId);
-    window.location.href=("/saved");
+    var userInput = $("#new-comment-field" + thisId).val().toString();
+   API.addNewComment(articleId, userInput);
+   $("#new-comment-field" + thisId).val("");
+   location.reload();
 });
 
 
@@ -87,6 +92,20 @@ $("#clear-btn").on("click", function () {
     API.clearArticles();
     window.location.href= ("/");
 });
+
+// when someone deletes a comment
+$(document).on("click", "#removeComment", function () {
+    var thisId = $(this).attr("data-id");
+
+    $.ajax({
+        method: "DELETE",
+        url: "/uncomment/" + thisId,
+    });
+
+    location.reload();
+});
+
+
 
 });
 
