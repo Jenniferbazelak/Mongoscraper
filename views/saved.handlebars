@@ -43,15 +43,17 @@
   <div id="modal1" class="modal">
     <div class="modal-content">
       <h4>Comments</h4>
-       {{#each commentData}}
-      <div id="comments-list">
-        <p>{{commentData.body}}</p>
-        <a class="waves-effect waves-light btn deleteComment" data-id="{{this._id}}"><i class="material-icons right">close</i>Delete Comment</a>
-        </div>
-         {{/each}}
+       <p><strong>{{this.title}}</strong></p>
+            {{#each this.comments}}
+            <hr>
+            <p>{{this.comments}}
+              <a class="btn-flat waves-effect waves-light" id="removeComment" data-id="{{this.id}}" style="float:right!important"><i
+                  class="material-icons">close</i></a>
+            </p>
+            {{/each}}
     <hr>
     <textarea id="new-comment-field"></textarea>
-    <a class="waves-effect waves-light btn addNewComment" data-id="{{this.id}}"><i class="material-icons right">note_add</i>Add New Comment</a>
+    <a class="waves-effect waves-light btn" id="addCommentBtn" data-id="{{this.id}}"><i class="material-icons right">note_add</i>Add Comment</a>
     </div>
     <div class="modal-footer">
       <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close X</a>

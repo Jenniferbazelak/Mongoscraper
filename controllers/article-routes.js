@@ -6,16 +6,7 @@ var Comment = require("../models/Comment.js");
 var Article = require("../models/Article");
 var router = express.Router();
 
-// //set up database with mongoose
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-mongoose.Promise = Promise;
-var db = mongoose.connection;
-mongoose.connect(MONGODB_URI);
 
-// Show any mongoose errors
-db.on("error", function(error) {
-    console.log("Mongoose Error: ", error);
-  });
 // When you visit this route, the server will
 // scrape data from the site, and save it to MongoDB.
 
@@ -99,52 +90,51 @@ router.post("/add-to-saved/:id", function (req, res) {
   // When you visit this route, the server will
   //add a new comment for the selected article.
   router.post("/add-new-comments/:id", function (req, res) {
-    var newComment = new Comment(req.body.comment);
-  // And save the new comment the db
-  newComment.save(function(error, newComment) {
-    // Log any errors
-    if (error) {
-      console.log(error);
-    }
-    // Otherwise
-    else {
-      // Use the article id to find and update it's comment
-      Article.findOneAndUpdate({ "_id": req.params.id }, { $push: { "comments": newComment._id }}, { new: true })
-      // Execute the above query
-      .exec(function(err, doc) {
-        // Log any errors
+   Comments.create(req.body).then(function (data) {
+    Article.findOneAndUpdate({ _id: req.params.id }, { $push: { comments: data._id } }, { new: true }, function(err, data) {
         if (err) {
-          console.log(err);
+            console.log(err);
         }
         else {
-          console.log("new commentadded : ", doc);
-          res.send(doc);
+            console.log(data);
         }
-      });
-    }
-  });
-  });
+    });
+})
+.then(function (res) {
+    res.json(res);
+})
+.catch(function (err) {
+    res.json(err);
+})
+});
   
 //This route will retrieve all of the comments
 // from the selected article
 router.get("/get-comments/:id", function (req, res) {
-    Article.findOne({ "_id": req.params.id })
+    Article.findOne({ _id: req.params.id })
   // ..and populate all of the comments associated with it
   .populate("comments")
-  // now, execute our query
-  .exec(function(error, doc) {
-    // Log any errors
-    if (error) {
-      console.log(error);
-    }
-    // Otherwise, send the doc to the browser as a json object
-    else {
-      res.json(doc);
-     
-    }
-  });
+  .then(function(res) {
+    res.json(res);
+        })
+        .catch(function (err) {
+            res.json(err);
+        })
 });
 
+//Remove a comment
+router.delete("/uncomment/:id", function (req, res) {
+    Comments.findOneAndRemove({ _id: req.params.id })
+        .exec(function (err, doc) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                console.log("Article Removed");
+                console.log(doc);
+            }
+        });
+});
 
   
 module.exports = router;

@@ -3,17 +3,7 @@ var exphbs = require("express-handlebars");
 var Article = require("../models/Article");
 var router = express.Router();
 
- // //set up database with mongoose
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-mongoose.Promise = Promise;
-var db = mongoose.connection;
-mongoose.connect(MONGODB_URI);
-
-// Show any mongoose errors
-db.on("error", function(error) {
-  console.log("Mongoose Error: ", error);
-});
-
+ 
 // Main route -This route will retrieve all of the data
 // from the scrapedData collection as a json
 router.get("/", function (req, res) {

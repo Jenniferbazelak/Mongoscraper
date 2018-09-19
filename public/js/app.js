@@ -65,7 +65,7 @@ $(document).ready(function () {
 });
 
 // When someone clicks the add comment button...
-$(".addNewComment").on("click", function () {
+$("#addCommentBtn").on("click", function () {
     var articleId = $(this).attr("data-id");
    API.addNewComment(articleId);
     window.location.href=("/saved");
