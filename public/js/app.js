@@ -17,7 +17,7 @@ $(document).ready(function () {
                 url: "/get-comments/" + articleId
             });
         },
-       addNewComment: function (articleId) {
+       addNewComment: function (articleId, userInput) {
             return $.ajax({
                 type: "POST",
                 url: "/add-new-comments" + articleId,
@@ -61,7 +61,7 @@ $(document).ready(function () {
  $(".addcomment").on("click", function () {
     $(".modal").modal("open");
     var articleId = $(this).attr("data-id");
-   API.pullAddComments(articleId).then(function (commentData) {
+   API.pullAddComments(articleId).then(function (data) {
     $("#comments-list").push(data)
 });
 
@@ -70,9 +70,9 @@ $(document).ready(function () {
 // When someone clicks the add comment button...
 $("#addCommentBtn").on("click", function () {
     var articleId = $(this).attr("data-id");
-    var userInput = $("#new-comment-field" + thisId).val().toString();
+    var userInput = $("#new-comment-field" + articleId).val().toString();
    API.addNewComment(articleId, userInput);
-   $("#new-comment-field" + thisId).val("");
+   $("#new-comment-field" + articleId).val("");
    location.reload();
 });
 

@@ -1,9 +1,18 @@
 var express = require("express");
-var exphbs = require("express-handlebars");
 var Article = require("../models/Article");
 var router = express.Router();
+var mongoose = require("mongoose");
 
+//Grab mongoose db
+var db = mongoose.connection;
+var dbURI = "mongodb://localhost/mongoHeadlines";
 
+if (process.env.MONGODB_URI) {
+  mongoose.connect(process.env.MONGODB_URI);
+}
+else {
+  mongoose.connect(dbURI)
+}
  
 // Main route -This route will retrieve all of the data
 // from the scrapedData collection as a json
